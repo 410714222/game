@@ -1,6 +1,3 @@
-'遊戲卡片的 HTML 結構'
-
-
 <nav class="category-bar">
   <button>全部遊戲</button>
   <button>動作冒險</button>
@@ -18,9 +15,6 @@
 </div>
 
 
-
-'讓它變漂亮的 CSS'
-
 <nav class="category-bar">
   <button>全部遊戲</button>
   <button>動作冒險</button>
@@ -35,4 +29,5 @@
       <p>分類：RPG</p>
     </div>
   </div>
+
 </div>
