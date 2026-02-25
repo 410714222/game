@@ -1,0 +1,38 @@
+'遊戲卡片的 HTML 結構'
+
+
+<nav class="category-bar">
+  <button>全部遊戲</button>
+  <button>動作冒險</button>
+  <button>角色扮演</button>
+</nav>
+
+<div class="game-container">
+  <div class="game-card" onclick="showDetail('g001')">
+    <img src="https://via.placeholder.com/300x180" alt="遊戲封面">
+    <div class="info">
+      <h3>艾爾登法環</h3>
+      <p>分類：RPG</p>
+    </div>
+  </div>
+</div>
+
+
+
+'讓它變漂亮的 CSS'
+
+<nav class="category-bar">
+  <button>全部遊戲</button>
+  <button>動作冒險</button>
+  <button>角色扮演</button>
+</nav>
+
+<div class="game-container">
+  <div class="game-card" onclick="showDetail('g001')">
+    <img src="https://via.placeholder.com/300x180" alt="遊戲封面">
+    <div class="info">
+      <h3>艾爾登法環</h3>
+      <p>分類：RPG</p>
+    </div>
+  </div>
+</div>
