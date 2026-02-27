@@ -1,0 +1,98 @@
+/* --- 基礎科技感設定 --- */
+:root {
+    --neon-cyan: #00f2ff;
+    --neon-pink: #ff007a;
+    --bg-dark: #0a0f18;
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* 調整背景網格，讓它在手機上更細緻 */
+    background-image: radial-gradient(rgba(0, 242, 255, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: white;
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    -webkit-tap-highlight-color: transparent; /* 移除手機點擊時的藍色醜方塊 */
+}
+
+/* 標題：在手機上縮小尺寸避免換行 */
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: var(--neon-cyan);
+    font-size: 2rem; /* 從 4rem 縮小到 2rem */
+    margin: 30px 0 20px;
+    text-shadow: 0 0 10px var(--neon-cyan);
+    letter-spacing: 4px;
+}
+
+/* 分類導覽：增加橫向捲動，防止按鈕太擠 */
+.filter-nav {
+    display: flex;
+    justify-content: flex-start; /* 改為靠左捲動 */
+    overflow-x: auto;            /* 啟動橫向捲動 */
+    padding: 10px 20px;
+    gap: 10px;
+    scrollbar-width: none;       /* 隱藏捲軸 (Firefox) */
+}
+.filter-nav::-webkit-scrollbar { display: none; } /* 隱藏捲軸 (Chrome/Safari) */
+
+.filter-btn {
+    flex: 0 0 auto;              /* 確保按鈕不會被壓縮 */
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 6px 15px;
+    font-size: 0.85rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.filter-btn.active {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+}
+
+/* 遊戲網格：手機上一排兩格 */
+.game-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 兩欄佈局 */
+    gap: 12px;
+    padding: 15px;
+}
+
+.game-card {
+    background: rgba(16, 23, 41, 0.9);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* 手機觸控時的縮放效果 */
+.game-card:active {
+    transform: scale(0.95);
+    border-color: var(--neon-cyan);
+}
+
+.game-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 手機上正方形圖片更省空間 */
+    object-fit: cover;
+}
+
+.card-body { padding: 10px; }
+.card-body h3 { font-size: 0.9rem; margin: 0; color: white; }
+.card-body .tag { color: var(--neon-cyan); font-size: 0.7rem; margin-top: 4px; }
+
+/* 詳情視窗：手機全螢幕優化 */
+.modal-content {
+    background: #050505;
+    border: 1px solid var(--neon-cyan);
+    width: 90%;
+    max-height: 85vh;
+    margin: 10vh auto;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.video-container { margin: 15px 0; border: 1px solid #333; }
