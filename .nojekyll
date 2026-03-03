@@ -1,0 +1,7 @@
+game/
+├── game.html          ← 主要的 HTML 應用
+├── script.js
+├── style.css
+├── data1.json
+├── data2.json
+└── images/
