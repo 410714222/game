@@ -1,10 +1,11 @@
 [
     {
-        "id": 1,
-        "title": "範例遊戲 A",
-        "category": "RPG",
-        "img": "https://picsum.photos/500/500?random=1",
-        "video": "https://www.youtube.com/embed/AKXiKBnzp6U",
-        "desc": "這是來自資料夾 1 的遊戲描述。"
+        "id": 4,
+        "title": "《NBA 2K26》",
+        "category": "2025/09/05",
+        "img": "images/《NBA 2K26》.jpg",
+        "video": "https://www.youtube.com/embed/S5DUuVaozPQ",
+        "desc": "籃球才是王道。在MyCAREER*、MyTEAM、MyNBA、The W和快速比賽模式中全力拼球！這攸關榮譽與面子！毫無懸念地奪下王者桂冠。"
     }
+
 ]
