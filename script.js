@@ -1,11 +1,11 @@
+// 宣告變數 (全檔案只能出現這一次)
 let currentGameData = [];
 
-// 1. 核心載入函數 (負責單一檔案與全部合併)
+// 核心載入函數
 async function loadData(target, event) {
     const grid = document.getElementById('game-grid');
     grid.innerHTML = '<div style="color:#00f2ff; padding:20px;">SYSTEM LOADING...</div>';
 
-    // 處理按鈕高亮
     if (event) {
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
@@ -16,7 +16,6 @@ async function loadData(target, event) {
         const timestamp = new Date().getTime(); 
 
         if (target === 'all') {
-            // 合併 1 到 6 個檔案
             const files = ['data1.json', 'data2.json', 'data3.json', 'data4.json', 'data5.json', 'data6.json'];
             const promises = files.map(file => 
                 fetch(`${file}?v=${timestamp}`).then(res => {
@@ -27,7 +26,6 @@ async function loadData(target, event) {
             const results = await Promise.all(promises);
             finalData = results.flat(); 
         } else {
-            // 讀取指定的單一檔案
             const response = await fetch(`${target}?v=${timestamp}`);
             if (!response.ok) throw new Error(`找不到 ${target}`);
             finalData = await response.json();
@@ -35,14 +33,13 @@ async function loadData(target, event) {
 
         currentGameData = finalData;
         renderGames(currentGameData);
-
     } catch (error) {
         grid.innerHTML = `<div style="color:red; padding:20px;">ERROR: ${error.message}</div>`;
-        console.error("讀取失敗:", error);
+        console.error(error);
     }
 }
 
-// 2. 渲染遊戲卡片 (唯一版本)
+// 渲染卡片
 function renderGames(data) {
     const grid = document.getElementById('game-grid');
     if (!data || data.length === 0) {
@@ -61,7 +58,7 @@ function renderGames(data) {
     `).join('');
 }
 
-// 3. 視窗控制 (唯一版本)
+// 視窗控制
 function openModal(id) {
     const game = currentGameData.find(g => g.id == id);
     if (!game) return;
@@ -70,14 +67,14 @@ function openModal(id) {
     document.getElementById('modal-desc').innerText = game.desc || "暫無介紹";
     document.getElementById('modal-video').src = game.video;
     document.getElementById('game-modal').style.display = 'block';
-    document.body.style.overflow = 'hidden'; // 防止背景捲動
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     document.getElementById('game-modal').style.display = 'none';
     document.getElementById('modal-video').src = "";
-    document.body.style.overflow = 'auto'; // 恢復背景捲動
+    document.body.style.overflow = 'auto';
 }
 
-// 4. 網頁啟動時預設顯示全部 (唯一版本)
+// 預設執行
 window.onload = () => loadData('all');
