@@ -1,10 +1,10 @@
-// 核心變數 (只宣告一次)
+// 核心變數：整個檔案只能出現這一次，解決 SyntaxError
 let currentGameData = [];
 
 // 1. 核心載入函數
 async function loadData(target) {
     const grid = document.getElementById('game-grid');
-    grid.innerHTML = '<div style="color:#00f2ff; padding:20px; font-family:Orbitron;">SYSTEM LOADING...</div>';
+    grid.innerHTML = '<div style="color:#00f2ff; padding:20px;">SYSTEM LOADING...</div>';
 
     try {
         let finalData = [];
@@ -30,31 +30,27 @@ async function loadData(target) {
         renderGames(currentGameData);
     } catch (error) {
         grid.innerHTML = `<div style="color:red; padding:20px;">ERROR: ${error.message}</div>`;
-        console.error(error);
     }
 }
 
-// 2. 渲染卡片
+// 2. 渲染遊戲卡片
 function renderGames(data) {
     const grid = document.getElementById('game-grid');
-    if (!data || data.length === 0) {
-        grid.innerHTML = '<div style="color:white; padding:20px;">無資料</div>';
-        return;
-    }
+    grid.innerHTML = ''; // 清空舊內容
 
-    grid.innerHTML = data.map(game => `
-        <div class="game-card" data-id="${game.id}">
+    data.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
             <img src="${game.img}" onerror="this.src='https://via.placeholder.com/300?text=Image+Error'">
             <div class="card-body">
                 <h3>${game.title}</h3>
                 <div class="tag">${Array.isArray(game.category) ? game.category.map(c => `#${c}`).join(' ') : `#${game.category}`}</div>
             </div>
-        </div>
-    `).join('');
-
-    // 為每張卡片綁定點擊事件
-    document.querySelectorAll('.game-card').forEach(card => {
-        card.addEventListener('click', () => openModal(card.dataset.id));
+        `;
+        // 使用 addEventListener 代替 onclick，解決 CSP 問題
+        card.addEventListener('click', () => openModal(game.id));
+        grid.appendChild(card);
     });
 }
 
@@ -70,24 +66,27 @@ function openModal(id) {
     document.body.style.overflow = 'hidden';
 }
 
-// 綁定關閉按鈕事件 (假設你的關閉按鈕 class 是 close-btn)
-document.querySelector('.close-btn').addEventListener('click', () => {
+function closeModal() {
     document.getElementById('game-modal').style.display = 'none';
     document.getElementById('modal-video').src = "";
     document.body.style.overflow = 'auto';
-});
+}
 
-// 4. 初始化：綁定導覽列按鈕事件
+// 4. 初始化事件監聽
 document.addEventListener('DOMContentLoaded', () => {
-    // 監聽導覽列點擊
+    // 綁定導覽按鈕
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            loadData(btn.dataset.file);
+            loadData(btn.getAttribute('data-target'));
         });
     });
 
-    // 預設載入全部
+    // 綁定關閉按鈕
+    const closeBtn = document.getElementById('close-modal-btn');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    // 初始載入
     loadData('all');
 });
